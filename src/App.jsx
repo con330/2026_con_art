@@ -584,14 +584,15 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/news" element={<News />} />
         <Route path="/paintings" element={<Paintings />} />
         <Route path="/biography" element={<Biography />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/news" element={<News />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
