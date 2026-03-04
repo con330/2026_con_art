@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import "./App.css";
