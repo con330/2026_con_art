@@ -1,5 +1,5 @@
 // src/App.jsx
-import { BrowserRouter, Routes, Route, Link, NavLink } from "react-router-dom";
+import {  Routes, Route, Link, NavLink } from "react-router-dom";
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
@@ -582,9 +582,5 @@ function AppRoutes() {
 }
 
 export default function App() {
-  return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <AppRoutes />
-    </BrowserRouter>
-  );
+  return <AppRoutes />;
 }
