@@ -1,6 +1,6 @@
 // src/App.jsx
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import "./App.css";
@@ -591,7 +591,6 @@ export default function App() {
         <Route path="/paintings" element={<Paintings />} />
         <Route path="/biography" element={<Biography />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
