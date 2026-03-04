@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { NavLink, Route, Routes, Link } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import "./App.css";
@@ -581,14 +581,17 @@ function AppRoutes() {
   );
 }
 
-export default function App() {
-  const [lang, setLang] = useState("ja");
-  const t = I18N[lang];
-  const value = useMemo(() => ({ lang, setLang, t }), [lang, t]);
 
+export default function App() {
   return (
-    <LangContext.Provider value={value}>
-      <AppRoutes />
-    </LangContext.Provider>
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/paintings" element={<Paintings />} />
+        <Route path="/biography" element={<Biography />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/news" element={<News />} />
+      </Routes>
+    </HashRouter>
   );
 }
