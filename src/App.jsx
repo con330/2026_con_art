@@ -582,5 +582,15 @@ function AppRoutes() {
 }
 
 export default function App() {
-  return <AppRoutes />;
+  const [lang, setLang] = useState("ja");
+
+  const t = useMemo(() => I18N[lang] ?? I18N.ja, [lang]);
+
+  const value = useMemo(() => ({ lang, setLang, t }), [lang, t]);
+
+  return (
+    <LangContext.Provider value={value}>
+      <AppRoutes />
+    </LangContext.Provider>
+  );
 }
