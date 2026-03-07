@@ -20,11 +20,15 @@ a{ color:inherit; }
 .muted{ color: var(--muted); }
 .p{ margin:0; line-height:1.9; color: var(--muted); }
 
+
+
+
 .container{
   max-width: 980px;
   margin: 0 auto;
   padding: 22px 16px;
 }
+
 
 .page{ min-height:100vh; }
 
@@ -334,4 +338,13 @@ a{ color:inherit; }
     height: 96px;
     flex: 0 0 96px;
   }
+}
+
+
+.contactForm button{
+  color:#555;
+}
+
+.contactForm button:hover{
+  color:#333;
 }

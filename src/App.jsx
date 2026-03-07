@@ -163,7 +163,7 @@ const I18N = {
       message: "Message",
       send: "Send",
       sending: "Sending...",
-      hint: '※ EmailJSテンプレ側で「To email＝あなたの受信用メール」「Reply to＝{{email}}」にしておくと返信が楽です。',
+      hint: '',
       missingKeys: "EmailJSの Service ID / Template ID / Public Key を .env か App.jsx の定数で設定してください。",
       ok: "送信しました。",
       fail:
@@ -202,7 +202,7 @@ const I18N = {
       message: "Message",
       send: "Send",
       sending: "Sending...",
-      hint: 'Tip: Set EmailJS template “To email” to your inbox and “Reply-to” to {{email}} for easy replies.',
+      hint: '',
       missingKeys: "Please set EmailJS Service ID / Template ID / Public Key in .env or App.jsx.",
       ok: "Message sent.",
       fail:
