@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import "./App.css";
 import topImage from "./assets/images/top.jpg";
+import studio1 from "./assets/images/studio/studio1.jpg";
+import studio2 from "./assets/images/studio/studio2.jpg";
 
 /** =========================
  *  EmailJS 設定（.env 推奨）
@@ -12,6 +14,9 @@ import topImage from "./assets/images/top.jpg";
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_qze5wxv";
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_8ngrqqa";
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
+
+
+
 
 /** =========================
  *  画像自動読み込み（年代フォルダ分け）
@@ -31,7 +36,7 @@ export const STATEMENT_JA_PARAS = [
 ];
 
 
-export const BIOGRAPHY_JA_PARAS = `東京を拠点に活動する美術家。哲学的思索と絵画制作を往復しながら、「空間」を主題とする作品を発表している。
+export const BIOGRAPHY_JA_PARAS = `東京を拠点に活動する美術家。 哲学的思索と絵画制作を往復しながら、「空間」を主題とする作品を発表している。
 
 ここでいう空間とは、建築や風景といった物理的な広がりを描写することではない。人がものを見るときに無意識に行ってしまう判断や意味づけが、いったん静まったときにもなお残る「場」の感触に関心を向けている。明確な出来事やメッセージとして確定する以前の状態、あるいは意味に回収されきらなかった痕跡を、絵画の中でどのように保ちうるかを探究している。
 
@@ -42,6 +47,29 @@ export const BIOGRAPHY_JA_PARAS = `東京を拠点に活動する美術家。哲
 主な展示に、2024年 中和ギャラリー（東京）での個展がある。現在も東京を拠点に、空間の在り方をめぐる継続的な制作と発表を行っている。`;
 
 
+const NEWS_DATA = [
+  { date: "2026-03-07", text: "新作シリーズを制作中（空間 / 風景）" },
+  { date: "2024-5-23", text: "中和ギャラリー（東京）にて個展を開催しました" },
+];
+
+const UPDATE_DATA = [
+  { date: "2026-03-07", text: "Top / News のレイアウトを更新しました" },
+  { date: "2026-03-06", text: "Biography / Statement の段落構成を調整しました" },
+  { date: "2026-03-05", text: "Paintings のサムネイル表示を調整しました" },
+];
+
+function formatNewsDate(dateStr) {
+  const d = new Date(dateStr);
+  if (Number.isNaN(d.getTime())) return dateStr;
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}.${m}.${day}`;
+}
+
+function sortByDateDesc(items) {
+  return [...items].sort((a, b) => new Date(b.date) - new Date(a.date));
+}
 
 /**
  * WORKS を自動生成
@@ -82,23 +110,17 @@ const LangContext = createContext(null);
 
 const I18N = {
   ja: {
-    brand: "CON GALLERY",
-    nav: { top: "Top", news: "News", paintings: "Paintings", bio: "Biography", contact: "Contact" },
-    top: {
-      titleNews: "News",
-      titleUpdate: "Update",
-      bulletsNews: [
-        "○ 公開：ポートフォリオ更新",
-        "○新作シリーズ制作中（空間／風景）",
-        "○2024年度　初個展",
-      ],
-      bulletsUpdate: ["○ Paintings に年区切りを追加", "○ サムネを拡大", "○ 作品画像を追加"],
+      brand: "CON GALLERY",
+      nav: { top: "Top", news: "News", paintings: "Paintings", bio: "Biography", contact: "Contact" },
+      top: {
+      featured: "Featured Work",
+      newsTitle: "News",
+      updateTitle: "Update",
+      viewAllPaintings: "View all paintings",
     },
     news: {
       title: "News",
       updateTitle: "Update",
-      bullets: ["○ 2026.03 — 新作制作中", "○ 2026.03 — イベント告知（追記予定）", "○ 2026.02 — 作品追加"],
-      updates: ["○ News を更新しました。", "○ Paintings を更新しました。"],
     },
     paintings: { title: "Paintings" },
     about: {
@@ -130,16 +152,14 @@ const I18N = {
     brand: "CON Chihiro",
     nav: { top: "Top", news: "News", paintings: "Paintings", bio: "Biography", contact: "Contact" },
     top: {
-      titleNews: "News",
-      titleUpdate: "Update",
-      bulletsNews: ["○ Current work: creating a new series (space / landscape)", "○ Events: upcoming exhibition (details TBD)", "○ Public: portfolio updated"],
-      bulletsUpdate: ["○ Added year sections in Paintings", "○ Enlarged thumbnails", "○ Added artworks"],
-    },
+      featured: "Featured Work",
+      newsTitle: "News",
+      updateTitle: "Update",
+      viewAllPaintings: "View all paintings",
+    },    
     news: {
       title: "News",
       updateTitle: "Update",
-      bullets: ["○ 2026.03 — Working on new paintings", "○ 2026.03 — Event announcement (TBD)", "○ 2026.02 — Added works"],
-      updates: ["○ Updated News.", "○ Updated Paintings."],
     },
     paintings: { title: "Paintings" },
     about: {
@@ -318,32 +338,77 @@ function Shell({ children }) {
  * ========================= */
 function TopPage() {
   const { t } = useLang();
-  const cover = WORKS[0];
+  const featuredWork = WORKS[0];
+  const newsItems = useMemo(() => sortByDateDesc(NEWS_DATA), []);
+  const updateItems = useMemo(() => sortByDateDesc(UPDATE_DATA), []);
 
   return (
     <Shell>
-      <section className="cover">
-        {cover ? <img className="coverImg" src={topImage} alt="Cover" /> : <div className="coverEmpty" />}
+      <section className="topHero">
+        <div className="container topHeroInner">
+          <div className="topHeroImageWrap">
+            {featuredWork ? (
+              <Link to="/gallery" className="topHeroImageLink" aria-label={`Open ${featuredWork.title}`}>
+                <img
+                  className="topHeroImage"
+                  src={featuredWork.image}
+                  alt={featuredWork.title}
+                />
+              </Link>
+            ) : (
+              <div className="topHeroEmpty" />
+            )}
+          </div>
+
+          <div className="topHeroMeta">
+            <div className="topHeroLabel">{t.top.featured}</div>
+            {featuredWork ? (
+              <>
+                <h1 className="topHeroTitle">{featuredWork.title}</h1>
+                <div className="topHeroInfo">
+                  {featuredWork.year} · {featuredWork.medium}
+                  {featuredWork.size ? ` · ${featuredWork.size}` : ""}
+                </div>
+                <div className="topHeroText">
+                  最新作を、トップページに表示しています。
+                </div>
+                <Link to="/gallery" className="textLink">
+                  {t.top.viewAllPaintings}
+                </Link>
+              </>
+            ) : (
+              <div className="topHeroText">作品画像を追加すると、ここに表示されます。</div>
+            )}
+          </div>
+        </div>
       </section>
 
-      <main className="container">
-        <h1 className="pageTitle">{t.top.titleNews}</h1>
-        <div className="rule" />
-        <ul className="circleList">
-          {t.top.bulletsNews.map((x, i) => (
-            <li key={i}>{x}</li>
-          ))}
-        </ul>
+      <main className="container topMain">
+        <section className="topNewsBlock">
+          <h2 className="pageTitle">{t.top.newsTitle}</h2>
+          <div className="rule" />
+          <ul className="newsList">
+            {newsItems.map((item, i) => (
+              <li key={i} className="newsItem">
+                <div className="newsDate">{formatNewsDate(item.date)}</div>
+                <div className="newsText">{item.text}</div>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-        <div className="rule" />
-
-        <h2 className="pageTitle">{t.top.titleUpdate}</h2>
-        <div className="rule" />
-        <ul className="circleList">
-          {t.top.bulletsUpdate.map((x, i) => (
-            <li key={i}>{x}</li>
-          ))}
-        </ul>
+        <section className="topNewsBlock">
+          <h2 className="pageTitle">{t.top.updateTitle}</h2>
+          <div className="rule" />
+          <ul className="newsList">
+            {updateItems.map((item, i) => (
+              <li key={i} className="newsItem">
+                <div className="newsDate">{formatNewsDate(item.date)}</div>
+                <div className="newsText">{item.text}</div>
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
     </Shell>
   );
@@ -351,24 +416,33 @@ function TopPage() {
 
 function NewsPage() {
   const { t } = useLang();
+  const newsItems = useMemo(() => sortByDateDesc(NEWS_DATA), []);
+  const updateItems = useMemo(() => sortByDateDesc(UPDATE_DATA), []);
+
   return (
     <Shell>
       <main className="container">
         <h1 className="pageTitle">{t.news.title}</h1>
         <div className="rule" />
-        <ul className="circleList">
-          {t.news.bullets.map((x, i) => (
-            <li key={i}>{x}</li>
+        <ul className="newsList">
+          {newsItems.map((item, i) => (
+            <li key={i} className="newsItem">
+              <div className="newsDate">{formatNewsDate(item.date)}</div>
+              <div className="newsText">{item.text}</div>
+            </li>
           ))}
         </ul>
 
-        <div className="rule" />
+        <div className="aboutSpacer" />
 
         <h2 className="pageTitle">{t.news.updateTitle}</h2>
         <div className="rule" />
-        <ul className="circleList">
-          {t.news.updates.map((x, i) => (
-            <li key={i}>{x}</li>
+        <ul className="newsList">
+          {updateItems.map((item, i) => (
+            <li key={i} className="newsItem">
+              <div className="newsDate">{formatNewsDate(item.date)}</div>
+              <div className="newsText">{item.text}</div>
+            </li>
           ))}
         </ul>
       </main>
@@ -451,23 +525,63 @@ function GalleryPage() {
 
 /** Biography */
 function AboutPage() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+
+  const bioParagraphs =
+    lang === "ja"
+      ? BIOGRAPHY_JA_PARAS.split("\n\n").filter(Boolean)
+      : Array.isArray(t.about.bioText)
+      ? t.about.bioText
+      : [t.about.bioText];
+
+  const statementParagraphs =
+    lang === "ja"
+      ? STATEMENT_JA_PARAS
+      : Array.isArray(t.about.stText)
+      ? t.about.stText
+      : [t.about.stText];
+
   return (
     <Shell>
-      <main className="container">
+      <main className="container aboutPage">
         <h1 className="pageTitle">{t.about.title}</h1>
         <div className="rule" />
-        <div className="paper">
-          <p className="p">{t.about.bioText}</p>
-        </div>
 
-        <div style={{ height: 18 }} />
+        <section className="aboutSection">
+          <div className="aboutText">
+            {bioParagraphs.map((para, i) => (
+              <p key={i} className="aboutParagraph">
+                {para}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="aboutImagesSection" aria-label="Studio views">
+          <div className="aboutImagesGrid">
+            <figure className="aboutFigure">
+              <img src={studio1} alt="制作風景 1" className="aboutStudioImage" />
+            </figure>
+            <figure className="aboutFigure">
+              <img src={studio2} alt="制作風景 2" className="aboutStudioImage" />
+            </figure>
+          </div>
+        </section>
+
+        <div className="aboutSpacer" />
 
         <h2 className="pageTitle">{t.about.statement}</h2>
         <div className="rule" />
-        <div className="paper">
-          <p className="p">{t.about.stText}</p>
-        </div>
+
+        <section className="aboutSection">
+          <div className="aboutText">
+            {statementParagraphs.map((para, i) => (
+              <p key={i} className="aboutParagraph">
+                {para}
+              </p>
+            ))}
+          </div>
+        </section>
       </main>
     </Shell>
   );
