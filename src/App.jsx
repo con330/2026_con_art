@@ -1,5 +1,5 @@
 // src/App.jsx
-import {  Routes, Route, Link, NavLink } from "react-router-dom";
+import { Routes, Route, Link, NavLink, useLocation } from "react-router-dom";
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
@@ -15,7 +15,34 @@ const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_q
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_8ngrqqa";
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
 
+/** =========================
+ *  Google Analytics 4
+ * ========================= */
+const GA_ID = "G-64GDLMEYPS";
 
+function trackPageView(path) {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  window.gtag("config", GA_ID, {
+    page_path: path,
+    page_title: document.title,
+  });
+}
+
+function trackEvent(eventName, params = {}) {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  window.gtag("event", eventName, params);
+}
+
+function AnalyticsTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = `${location.pathname}${location.search}${location.hash}`;
+    trackPageView(path);
+  }, [location]);
+
+  return null;
+}
 
 
 /** =========================
@@ -454,7 +481,6 @@ function NewsPage() {
 function GalleryPage() {
   const { t } = useLang();
 
-  // ★ 年代は自動抽出 → 降順（2026→2022）
   const years = useMemo(() => {
     return [...new Set(WORKS.map((w) => w.year))].filter((y) => y).sort((a, b) => b - a);
   }, []);
@@ -470,12 +496,34 @@ function GalleryPage() {
   }, [years]);
 
   const [activeIndex, setActiveIndex] = useState(null);
+
   const activeWork = useMemo(() => {
     if (activeIndex === null) return null;
     return WORKS[clampIndex(activeIndex, WORKS.length)];
   }, [activeIndex]);
 
-  const openAt = (idx) => setActiveIndex(idx);
+  useEffect(() => {
+    if (!activeWork) return;
+
+    trackEvent("view_work", {
+      work_title: activeWork.title,
+      work_year: String(activeWork.year),
+      medium: activeWork.medium,
+    });
+  }, [activeWork]);
+
+  const openAt = (idx) => {
+    const work = WORKS[idx];
+    if (work) {
+      trackEvent("select_work", {
+        work_title: work.title,
+        work_year: String(work.year),
+        medium: work.medium,
+      });
+    }
+    setActiveIndex(idx);
+  };
+
   const close = () => setActiveIndex(null);
   const prev = () => setActiveIndex((i) => clampIndex((i ?? 0) - 1, WORKS.length));
   const next = () => setActiveIndex((i) => clampIndex((i ?? 0) + 1, WORKS.length));
@@ -499,14 +547,19 @@ function GalleryPage() {
 
               <div className="iconGrid" aria-label={`Paintings ${y}`}>
                 {list.map((w) => (
-                  <button key={w.id} className="iconBtn" onClick={() => openAt(w._index)} aria-label={`Open ${w.title}`}>
+                  <button
+                    key={w.id}
+                    className="iconBtn"
+                    onClick={() => openAt(w._index)}
+                    aria-label={`Open ${w.title}`}
+                  >
                     <motion.img
                       src={w.image}
                       alt={w.title}
                       className="iconImg"
                       layoutId={`work-image-${w.id}`}
                       whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }} // spring無し
+                      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                     />
                   </button>
                 ))}
@@ -517,7 +570,13 @@ function GalleryPage() {
           );
         })}
 
-        <Lightbox work={activeWork} isOpen={activeIndex !== null} onClose={close} onPrev={prev} onNext={next} />
+        <Lightbox
+          work={activeWork}
+          isOpen={activeIndex !== null}
+          onClose={close}
+          onPrev={prev}
+          onNext={next}
+        />
       </main>
     </Shell>
   );
@@ -620,6 +679,12 @@ function ContactPage() {
       formRef.current?.reset();
     } catch (err) {
       console.error(err);
+
+      trackEvent("contact_submit", {
+        form_name: "contact",
+        page_path: "/contact",
+      });
+
       setStatus({
         state: "error",
         message: err?.text ? `${t.contact.fail} (${err.text})` : t.contact.fail,
@@ -699,11 +764,11 @@ export default function App() {
   const [lang, setLang] = useState("ja");
 
   const t = useMemo(() => I18N[lang] ?? I18N.ja, [lang]);
-
   const value = useMemo(() => ({ lang, setLang, t }), [lang, t]);
 
   return (
     <LangContext.Provider value={value}>
+      <AnalyticsTracker />
       <AppRoutes />
     </LangContext.Provider>
   );
