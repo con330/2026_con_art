@@ -225,6 +225,7 @@ a{ color:inherit; }
   object-fit: contain;
   background: #111;
   display:block;
+  padding: 10px;
 }
 .lbCaption{
   padding: 10px 12px;
