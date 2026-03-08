@@ -9,7 +9,11 @@
 html,
 body,
 #root {
-  background: #ffffff;
+  background: var(--bg);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -17,10 +21,20 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 a {
   color: inherit;
+}
+
+img {
+  max-width: 100%;
 }
 
 button,
@@ -30,20 +44,16 @@ textarea {
   box-sizing: border-box;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 .page {
   min-height: 100vh;
-  background: #ffffff;
+  background: var(--bg);
 }
 
 /* Header */
 
 .header {
   border-bottom: 1px solid var(--line);
-  background: #ffffff;
+  background: var(--bg);
 }
 
 .headerInner {
@@ -69,9 +79,9 @@ textarea {
 }
 
 .navLink {
-  text-decoration: none;
   font-size: 13px;
   color: rgba(0, 0, 0, 0.55);
+  text-decoration: none;
   transition: color 0.2s ease;
 }
 
@@ -85,11 +95,11 @@ textarea {
 
 .langBtn {
   margin-left: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: rgba(0, 0, 0, 0.85);
   padding: 0;
+  border: none;
+  background: none;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
 }
 
 /* Container */
@@ -109,8 +119,8 @@ textarea {
 
 .rule {
   height: 1px;
-  background: var(--line);
   margin: 16px 0 28px;
+  background: var(--line);
 }
 
 .muted {
@@ -120,7 +130,7 @@ textarea {
 /* Top hero */
 
 .topHero {
-  background: #ffffff;
+  background: var(--bg);
 }
 
 .topHeroInner {
@@ -167,7 +177,7 @@ textarea {
 }
 
 .topHeroTitle {
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
   font-size: 24px;
   font-weight: 600;
   line-height: 1.35;
@@ -176,8 +186,8 @@ textarea {
 .topHeroInfo {
   margin-bottom: 16px;
   font-size: 13px;
-  color: var(--muted);
   line-height: 1.8;
+  color: var(--muted);
 }
 
 .topHeroText {
@@ -187,24 +197,41 @@ textarea {
   color: rgba(0, 0, 0, 0.82);
 }
 
+.artistName {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
 .textLink {
   display: inline-block;
-  font-size: 13px;
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.92);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding-bottom: 2px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.92);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .textLink:hover {
   border-bottom-color: rgba(0, 0, 0, 0.55);
 }
 
+.paintingsLink {
+  display: inline-block;
+  margin-top: 10px;
+  padding-bottom: 2px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: rgba(0, 0, 0, 0.88);
+  text-decoration: none;
+}
+
 /* Legacy top cover */
 
 .cover {
   width: 100%;
-  background: #ffffff;
+  background: var(--bg);
 }
 
 .coverImg {
@@ -217,7 +244,7 @@ textarea {
 .coverEmpty {
   width: 100%;
   height: min(42vw, 420px);
-  background: #ffffff;
+  background: var(--bg);
 }
 
 /* Top main blocks */
@@ -239,15 +266,15 @@ textarea {
 }
 
 .circleList li {
-  margin: 0 0 6px 0;
+  margin: 0 0 6px;
 }
 
 /* News */
 
 .newsList {
-  list-style: none;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .newsItem {
@@ -272,9 +299,9 @@ textarea {
 }
 
 .paper {
-  background: transparent;
-  border: none;
   padding: 0;
+  border: none;
+  background: transparent;
   box-shadow: none;
 }
 
@@ -292,16 +319,16 @@ textarea {
 }
 
 .yearLabel {
-  font-weight: 600;
   font-size: 15px;
+  font-weight: 600;
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
 
 .yearRule {
+  flex: 1;
   height: 1px;
   background: var(--line);
-  flex: 1;
 }
 
 .iconGrid {
@@ -311,9 +338,9 @@ textarea {
 }
 
 .iconBtn {
+  padding: 0;
   border: none;
   background: none;
-  padding: 0;
   cursor: pointer;
 }
 
@@ -333,9 +360,9 @@ textarea {
 .lightbox {
   position: fixed;
   inset: 0;
+  z-index: 100;
   display: grid;
   place-items: center;
-  z-index: 100;
 }
 
 .lightboxBackdrop {
@@ -347,11 +374,11 @@ textarea {
 .lightboxPanel {
   position: relative;
   z-index: 2;
-  max-width: 94vw;
-  max-height: 94vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 94vw;
+  max-height: 94vh;
 }
 
 .lightboxImg {
@@ -398,7 +425,6 @@ textarea {
 .lbNav {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   z-index: 3;
   width: 44px;
   height: 44px;
@@ -408,6 +434,7 @@ textarea {
   color: #ffffff;
   font-size: 22px;
   cursor: pointer;
+  transform: translateY(-50%);
 }
 
 .lbPrev {
@@ -421,7 +448,7 @@ textarea {
 /* Biography / Statement */
 
 .aboutPage {
-  background: #ffffff;
+  background: var(--bg);
 }
 
 .aboutSection {
@@ -433,7 +460,7 @@ textarea {
 }
 
 .aboutParagraph {
-  margin: 0 0 1.5em 0;
+  margin: 0 0 1.5em;
   font-size: 15px;
   line-height: 2.05;
   letter-spacing: 0.02em;
@@ -453,10 +480,10 @@ textarea {
 }
 
 .aboutImagesGrid {
-  max-width: 980px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
+  max-width: 980px;
 }
 
 .aboutFigure {
@@ -485,7 +512,7 @@ textarea {
 }
 
 .bioText p {
-  margin: 0 0 1.5em 0;
+  margin: 0 0 1.5em;
 }
 
 /* Contact */
@@ -521,9 +548,9 @@ textarea {
   justify-content: center;
   min-width: 120px;
   padding: 13px 18px;
-  background: #111111;
-  color: #666;
   border: none;
+  background: #111111;
+  color: #666666;
   cursor: pointer;
 }
 
@@ -563,9 +590,9 @@ textarea {
 
 .contactForm button {
   padding: 14px;
+  border: none;
   background: black;
   color: white;
-  border: none;
   cursor: pointer;
 }
 
@@ -573,7 +600,7 @@ textarea {
 
 .footer {
   border-top: 1px solid var(--line);
-  background: #ffffff;
+  background: var(--bg);
 }
 
 .footerInner {
@@ -584,6 +611,17 @@ textarea {
   min-height: 72px;
   font-size: 12px;
   color: rgba(0, 0, 0, 0.62);
+}
+
+/* PC hover underline only */
+
+@media (hover: hover) and (pointer: fine) {
+  .navLink:hover,
+  .paintingsLink:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
 }
 
 /* Responsive */
@@ -624,11 +662,6 @@ textarea {
   .headerInner {
     align-items: flex-start;
     flex-wrap: wrap;
-  }
-
-    .aboutImagesGrid {
-    grid-template-columns: 1fr;
-    gap: 14px;
   }
 
   .nav {
@@ -672,6 +705,11 @@ textarea {
   .bioText {
     font-size: 14px;
     line-height: 1.95;
+  }
+
+  .aboutImagesGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .lbPrev {

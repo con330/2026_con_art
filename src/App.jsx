@@ -133,7 +133,7 @@ const LangContext = createContext(null);
 
 const I18N = {
   ja: {
-    brand: "CON GALLERY",
+    brand: "Con Tadahiro",
     nav: { top: "Top", news: "News", paintings: "Paintings", bio: "Biography", contact: "Contact" },
     top: {
       featured: "Featured Work",
