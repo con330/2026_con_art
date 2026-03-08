@@ -258,6 +258,9 @@ function useLang() {
 const SMOOTH_TWEEN = { duration: 0.28, ease: [0.22, 1, 0.36, 1] };
 
 function Lightbox({ work, isOpen, onClose, onPrev, onNext }) {
+  const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -276,6 +279,31 @@ function Lightbox({ work, isOpen, onClose, onPrev, onNext }) {
       document.body.style.overflow = prevOverflow;
     };
   }, [isOpen, onClose, onPrev, onNext]);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.changedTouches[0].clientX;
+    touchEndX.current = null;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current == null || touchEndX.current == null) return;
+
+    const diff = touchStartX.current - touchEndX.current;
+    const threshold = 50;
+
+    if (diff > threshold) {
+      onNext?.();
+    } else if (diff < -threshold) {
+      onPrev?.();
+    }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
 
   return (
     <AnimatePresence>
@@ -302,6 +330,9 @@ function Lightbox({ work, isOpen, onClose, onPrev, onNext }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={SMOOTH_TWEEN}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             <motion.img
               src={work.image}
