@@ -52,23 +52,53 @@ const imageModules = import.meta.glob("./assets/images/*/*.{jpg,jpeg,png,webp}",
   import: "default",
 });
 
-export const STATEMENT_JA_PARAS = [
-  "私の制作の主題は「空間」です。ただし、ここでいう空間は、建物や風景といった物理的な広がりを描写することではありません。私が関心を向けているのは、人が何かを見たときに無意識に行ってしまう判断や意味づけが、いったん静まったときにもなお残っている「場」のあり方です。意味が与えられる前、あるいは意味に回収されきらなかった部分に、どのような知覚が立ち上がるのか。その条件を、絵画という形式で探究しています。",
-  "私たちは日常の中で、目の前のものをすぐに言葉にし、価値づけ、理解しようとします。しかし、その理解の枠組みが届かない領域にも、確かに何かが存在しています。それは明確な出来事としては成立せず、善悪や目的といった評価にも定着しません。ただ、可能性として漂い続ける状態です。私はその不確定な状態を、画面上に保とうとしています。",
-  "制作においては、特定の物語や象徴を提示することを目的にしていません。色彩や筆致、余白の関係を通して、緊張と静けさが同時に存在する場を構成します。構図は均衡を意識しながらも、完全な調和には閉じません。どこかにわずかなずれや未決の感触を残すことで、観る方の解釈が立ち上がる直前の時間を引き延ばしたいと考えています。",
-  "私が大切にしているのは、祈りに近い静けさです。それは特定の宗教性を示すものではなく、自分の意図や主張をできる限り抑えたときに生まれる透明な状態です。描こうとしすぎず、説明しすぎず、判断が入りきらなかった痕跡を消さないこと。その姿勢が、私の制作の基盤になっています。",
-  "さまざまな空間を描くとは、多様な場所を再現することではありません。意味の重力が少し緩んだときにあらわれる場の質を、繰り返し異なるかたちで試みることです。完成された答えを示すのではなく、まだ確定していない可能性が静かに存在し続ける場を差し出すこと。それが、私の絵画の目指しているところです。",
-];
+export const STATEMENT_JA_PARAS = `私の絵画は、何かを描くことから始まるのではない。それはつまり、「出来事の成立」が現れる以前、あるいは消えたあとに残る空間の状態を探ることから始まる。
 
-export const BIOGRAPHY_JA_PARAS = `東京を拠点に活動する美術家。 哲学的思索と絵画制作を往復しながら、「空間」を主題とする作品を発表している。
+私はこの状態を「純空間」と呼んでいる。純空間とは、真空や重力が介入しうる状態として存在する、空間の初期の条件である。そこでは意味や物語はまだ固定されておらず、空間は出来事として確定する前の可能性を含んだまま、静かに開かれている。
 
-ここでいう空間とは、建築や風景といった物理的な広がりを描写することではない。人がものを見るときに無意識に行ってしまう判断や意味づけが、いったん静まったときにもなお残る「場」の感触に関心を向けている。明確な出来事やメッセージとして確定する以前の状態、あるいは意味に回収されきらなかった痕跡を、絵画の中でどのように保ちうるかを探究している。
+この考えの背景には、シモーヌ・ヴェイユが述べた「重力」と「恩寵」、そして人が自らの介入を停止したときに生じる「真空」という思考がある。人が意味づけや判断を行うとき、空間は重力のもとに引き下ろされ、出来事として固定される。私が関心を持つのは、その介入がなお入りきらない状態（意識空間）である。
 
-制作は主に抽象絵画。色彩の重なりや筆致の運動、余白の緊張関係を通して、強い物語性に回収されない空間を構成する。完全な調和や結論へと閉じるのではなく、わずかなずれや未決の感触をあえて残すことで、鑑賞者の解釈が立ち上がる直前の時間を引き延ばすことを意図している。作品は、何かを説明するための図像ではなく、見ることの条件そのものを問い直す場として提示される。
+このとき空間は、何かが起きた場として回収されるのではなく、出来事が成立しなかった事実を残したまま漂う。私はこの状態を「非出来事」と呼んでいる。
 
-思想的背景には、近現代哲学や美学の思考があり、制作と並行して言語化の試みも行っている。絵画を単なる感情表現としてではなく、空間をめぐる思索の実践として位置づけ、理論と制作の双方から検討を重ねている。
+画面の中では、光の層や色彩の揺らぎだけでなく、みずみずしい原色も現れる。それらは対象を再現するためではなく、空間が成立する前後の不安定な気配を保持するための要素として置かれている。
 
-主な展示に、2024年 中和ギャラリー（東京）での個展がある。現在も東京を拠点に、空間の在り方をめぐる継続的な制作と発表を行っている。`;
+私の制作は、このように目では回収しきれない、多様で多彩な空間の在り方について探る試みである。`;
+
+export const BIOGRAPHY_JA_PARAS = `Con Tadahiro は日本を拠点に活動する抽象画家。
+
+油彩で、光や空気の揺らぎのような概念を、空間を主題として制作している。
+
+彼の作品は、風景や物体そのものを描くのではなく、それらが現れる以前、あるいは消えたあとに残る場の気配へと向かっている。画面には光の層や色彩の揺らぎが重なり、ときにみずみずしい原色も現れながら、静かな広がりと緊張を生み出す。
+
+制作の背景には、作家が「純空間」と呼ぶ空間理解がある。これは、すべての出来事や意味が固定される以前の、空間の初期の条件に注目する考えであり、作品全体の基調となっている。
+
+近年は「after-非出来事」シリーズを通して、出来事のあとに残る空間の感覚や、言葉や物語に回収されきらない場の在り方を探求している。
+
+現在、日本を拠点に制作活動を続けている。`;
+
+export const STATEMENT_EN_PARAS = `My painting does not begin with depicting an object. It begins by tracing the condition of space that remains before the formation of an event appears, or after it has disappeared.
+
+I call this condition “pure space.” Pure space is the initial condition of space in which vacuum and gravity can intervene. At this stage, meaning and narrative have not yet been fixed, and space remains quietly open, containing the possibility of an event before it is fully determined.
+
+This idea is informed by Simone Weil’s reflections on “gravity” and “grace,” as well as the “vacuum” that appears when human intervention is suspended. When interpretation and judgment enter, space is pulled downward by gravity and fixed as an event. What concerns me is the condition in which that intervention has not fully taken hold — a conscious space.
+
+In such a state, space is not recovered as the site of something that happened. Instead, it continues to drift while retaining the fact that an event did not come into being. I call this condition “non-event.”
+
+Within the pictorial surface, layers of light and fluctuations of color appear alongside fresh primary colors. These are not placed to reproduce an object, but to retain the unstable atmosphere of space before and after its formation.
+
+My practice is an attempt to explore these diverse and richly varied ways in which space can exist beyond what the eye can fully contain.`;
+
+export const BIOGRAPHY_EN_PARAS = `Con Tadahiro is a Japan-based abstract painter.
+
+Working primarily in oil painting, he explores space as a subject through concepts such as the fluctuation of light and air.
+
+Rather than depicting landscape or object itself, his paintings turn toward the atmosphere that remains before things appear or after they disappear. Layers of light and fluctuations of color overlap on the canvas, and at times fresh primary colors emerge, generating both quiet expansiveness and tension.
+
+Underlying his practice is a spatial understanding he calls “pure space.” This concept directs attention to the initial condition of space before all events and meanings become fixed, and it forms the basis of his work as a whole.
+
+In recent years, through the series “after – non-event,” he has explored the sensation of space that remains after an occurrence, as well as forms of presence that cannot be fully absorbed into language or narrative.
+
+He is currently based in Japan and continues his painting practice.`;
 
 const NEWS_DATA = [
   { date: "2026-03-07", text: "新作シリーズを制作中（それから-after）" },
@@ -174,7 +204,7 @@ const I18N = {
     emptyWorks: "画像がまだありません。src/assets/images/2026/01.jpg のように追加してください。",
   },
   en: {
-    brand: "CON Chihiro",
+    brand: "Con Tadahiro",
     nav: { top: "Top", news: "News", paintings: "Paintings", bio: "Biography", contact: "Contact" },
     top: {
       featured: "Featured Work",
@@ -192,8 +222,8 @@ const I18N = {
     about: {
       title: "Biography",
       statement: "Statement",
-      bioText: "Write your biography here (birth year, location, education, exhibitions, etc.).",
-      stText: "Write your statement here (themes, methods, interests, series description, etc.).",
+      bioText: BIOGRAPHY_EN_PARAS,
+      stText: STATEMENT_EN_PARAS,
     },
     contact: {
       title: "Contact",
@@ -581,18 +611,18 @@ function AboutPage() {
   const { t, lang } = useLang();
 
   const bioParagraphs =
-    lang === "ja"
-      ? BIOGRAPHY_JA_PARAS.split("\n\n").filter(Boolean)
+    typeof t.about.bioText === "string"
+      ? t.about.bioText.split("\n\n").filter(Boolean)
       : Array.isArray(t.about.bioText)
       ? t.about.bioText
-      : [t.about.bioText];
+      : [String(t.about.bioText)];
 
   const statementParagraphs =
-    lang === "ja"
-      ? STATEMENT_JA_PARAS
+    typeof t.about.stText === "string"
+      ? t.about.stText.split("\n\n").filter(Boolean)
       : Array.isArray(t.about.stText)
       ? t.about.stText
-      : [t.about.stText];
+      : [String(t.about.stText)];
 
   return (
     <Shell>
@@ -610,13 +640,13 @@ function AboutPage() {
           </div>
         </section>
 
-        <section className="aboutImagesSection" aria-label="Studio views">
+        <section className="aboutImagesSection" aria-label={lang === "ja" ? "制作風景" : "Studio views"}>
           <div className="aboutImagesGrid">
             <figure className="aboutFigure">
-              <img src={studio1} alt="制作風景 1" className="aboutStudioImage" />
+              <img src={studio1} alt={lang === "ja" ? "制作風景 1" : "Studio view 1"} className="aboutStudioImage" />
             </figure>
             <figure className="aboutFigure">
-              <img src={studio2} alt="制作風景 2" className="aboutStudioImage" />
+              <img src={studio2} alt={lang === "ja" ? "制作風景 2" : "Studio view 2"} className="aboutStudioImage" />
             </figure>
           </div>
         </section>
