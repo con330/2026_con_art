@@ -591,7 +591,7 @@ function GalleryPage() {
         <h1 className="pageTitle">{t.paintings.title}</h1>
         <div className="rule" />
 
-        {WORKS.length === 1 && <div className="paper">{t.emptyWorks}</div>}
+        {WORKS.length && <div className="paper">{t.emptyWorks}</div>}
 
         {years.map((y) => {
           const list = worksByYear.get(y) || [];
