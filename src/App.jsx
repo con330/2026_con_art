@@ -101,6 +101,7 @@ In recent years, through the series “after – non-event,” he has explored t
 He is currently based in Japan and continues his painting practice.`;
 
 const NEWS_DATA = [
+  { date: "2026-07-18", text: "神奈川開催　万歳展にて展示（「みんなで、いきる」ことの意味を考える）" },
   { date: "2026-03-07", text: "新作シリーズを制作中（それから-after）" },
   { date: "2024-05-23", text: "中和ギャラリー（東京）にて個展を開催しました" },
 ];
